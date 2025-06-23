@@ -1,0 +1,40 @@
+<%- include('../includes/head.ejs') %>
+    <%- include('../includes/navigation.ejs') %>
+        <main>
+            <% if (errorMessage) { %>
+                <div class="error-message">
+                    <%= errorMessage %>
+                </div>
+                <% } %>
+
+                    <div class="register-container">
+                        <div class="register-form">
+                            <h2>Zarejestruj się</h2>
+                            <form action="/signup" method="POST">
+                                <div class="register-group">
+                                    <label for="reg-email">Adres e-mail</label>
+                                    <input type="email" id="reg-email" name="email" required
+                                        value="<%= oldInput.email %>"
+                                        class="<%= validationErrors.find(e => e.path === 'email') ? 'invalid' : '' %>" />
+                                </div>
+                                <div class="register-group">
+                                    <label for="reg-password">Hasło</label>
+                                    <input type="password" id="reg-password" name="password" required
+                                        value="<%= oldInput.password %>"
+                                        class="<%= validationErrors.find(e => e.path === 'password') ? 'invalid' : '' %>" />
+                                </div>
+                                <div class="register-group">
+                                    <label for="reg-confirm-password">Potwierdź hasło</label>
+                                    <input type="password" id="reg-confirm-password" name="confirmPassword" required
+                                        class="<%= validationErrors.find(e => e.path === 'confirmPassword') ? 'invalid' : '' %>"
+                                        value="<%= oldInput.confirmPassword%>" />
+                                </div>
+                                <input type="hidden" name="_csrf" value="<%= csrfToken %>" />
+                                <button type="submit" class="register-button">Zarejestruj się</button>
+                                <a href="/login">Masz już konto? Zaloguj się</a>
+                            </form>
+                        </div>
+                        <div class="register-image"></div>
+                    </div>
+        </main>
+        <%- include('../includes/end.ejs') %>

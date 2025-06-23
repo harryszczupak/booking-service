@@ -1,0 +1,35 @@
+<%- include('../includes/head.ejs') %>
+    <%- include('../includes/navigation.ejs') %>
+        <div class="profile-container">
+
+
+
+            <div class="profile-title">Profil użytkownika</div>
+
+            <div class="profile-info">
+                <strong>Email:</strong>
+                <%= user.email %>
+            </div>
+
+            <div class="profile-info">
+
+                <% if (user.isAdmin) { %>
+                    <span class="admin-label">Administrator</span>
+                    <% } else { %>
+                        <span class="user-label">Użytkownik</span>
+                        <% } %>
+
+            </div>
+            <form action="/reset-password" method="POST" class="reset-password-form">
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                <button type="submit" class="btn-reset">Resetuj hasło</button>
+            </form>
+
+
+        </div>
+        <% if (mail_message) { %>
+            <div class="mail-message">
+                <%= mail_message %>
+            </div>
+            <% } %>
+                <%- include('../includes/end.ejs') %>

@@ -1,0 +1,67 @@
+<%- include('../includes/head.ejs') %>
+    <%- include('../includes/navigation.ejs') %>
+
+        <div class="offer-detail" id="offers-data" data-offers='<%- JSON.stringify(offer) %>'>
+            <a href="/offers">&larr; Powrót</a>
+            <h1>
+                <%= offer.title %>
+            </h1>
+
+            <div class="offer-content">
+     
+                <div class="carousel-wrapper">
+                    <button id="prevBtn" class="carousel-btn left">&lt;</button>
+                    <div class="carousel-viewport">
+                        <div class="carousel-track">
+                            <% offer.images.forEach(img=> { %>
+                                <img src="<%= img %>" alt="<%= offer.title %>">
+                                <% }) %>
+                        </div>
+                    </div>
+                    <button id="nextBtn" class="carousel-btn right">&gt;</button>
+                </div>
+
+          
+                <div class="offer-info">
+                    <div class="offer-section">
+                        <div class="offer-infos">
+                            <h2>
+                                <%= offer.name %>
+                            </h2>
+
+                            <p><strong>Cena za noc:</strong>
+                                <%= offer.pricePerNight %> zł</strong>
+                            </p>
+                            <p><strong>Lokacja:</strong>
+                                <%= offer.location.city %>, <%= offer.location.address %>
+                            </p>
+                        </div>
+                        <div class="offer-description">
+                            <p>
+                                <%= offer.description %>
+                            </p>
+                        </div>
+                    </div>
+
+                    <form id="booking-form" action="/booking" method="POST" class="booking-form">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <input type="hidden" name="hotelId" value="<%= offer._id %>">
+
+                        <div class="form-group">
+                            <label for="startDate">Przyjazd</label>
+                            <input type="date" name="startDate" id="startDate" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="endDate">Wyjazd</label>
+                            <input type="date" name="endDate" id="endDate" required>
+                        </div>
+
+                        <button type="submit" class="btn-booking">Zarezerwuj</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <script src="/js/carousel.js"></script>
+        <%- include('../includes/end.ejs') %>

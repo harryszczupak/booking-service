@@ -1,0 +1,26 @@
+<header>
+    <nav>
+        <ul class="left-nav">
+            <li><a href="/" class="<%= path === '/' ? 'active' : ''%>">Główna</a></li>
+            <li><a href="/offers" class="<%= path === '/offers' ? 'active' : ''%>">Oferty</a></li>
+            <a href="<%= isAuthenticated ? '/orders' : '/find-order' %>"
+                class="<%= path === '/find-offers' ? 'active' : '' %>">
+                Rezerwacje
+            </a>
+        </ul>
+        <ul class="right-nav">
+            <% if(isAuthenticated) { %>
+
+                <li><a href="/profile" class="<%= path === '/profile' ? 'active' : ''%>">Profil</a></li>
+                <form action="/logout" method="POST" class="logout-form">
+                    <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                    <button type="submit" class="btn-logout">Wyloguj</button>
+                </form>
+
+                <% } else { %>
+                    <li><a href="/login" class="<%= path === '/login' ? 'active' : ''%>">Zaloguj</a></li>
+                    <li><a href="/signup" class="<%= path === '/signup' ? 'active' : ''%>">Stwórz konto</a></li>
+                    <% } %>
+        </ul>
+    </nav>
+</header>

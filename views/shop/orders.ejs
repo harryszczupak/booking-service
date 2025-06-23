@@ -1,0 +1,51 @@
+<%- include('../includes/head.ejs') %>
+    <%- include('../includes/navigation.ejs') %>
+
+        <div class="order-wrapper">
+            <h1>
+                <%= pageTitle %>
+            </h1>
+
+            <% if (orders.length===0) { %>
+                <p class="no-orders">Nie masz jeszcze żadnych rezerwacji.</p>
+                <% } else { %>
+                    <% orders.forEach(order=> { %>
+                        <div class="order">
+                            <% if (order.hotelOffer.images && order.hotelOffer.images.length> 0) { %>
+                                <img src="<%= order.hotelOffer.images[0] %>" alt="Hotel" />
+                                <% } else { %>
+                                    <img src="/images/default-hotel.jpg" alt="Brak zdjęcia" />
+                                    <% } %>
+                                        <div class="order-info">
+                                            <h2>
+                                                <%= order.hotelOffer.name %>
+                                            </h2>
+                                            <p><strong>Miasto:</strong>
+                                                <%= order.hotelOffer.location.city %>
+                                            </p>
+                                            <p><strong>Adres:</strong>
+                                                <%= order.hotelOffer.location.address %>
+                                            </p>
+                                            <p><strong>Ilość nocy: </strong>
+                                                <%= order.numNights %>
+
+                                            </p>
+                                            <p><strong>Cena całkowita: </strong>
+                                                <%= order.totalAmount %> zł
+
+                                            </p>
+                                        </div>
+                                        <% if(isAuthenticated) { %>
+                                            <form method="post" action="/delete-order">
+                                                <button class="cancel-button">Anuluj</button>
+                                                <input type="hidden" value="<%=order._id %> " name="deleteOrderId">
+
+                                                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                                            </form>
+                                            <% } %>
+                        </div>
+                        <% }) %>
+                            <% } %>
+        </div>
+
+        <%- include('../includes/end.ejs') %>

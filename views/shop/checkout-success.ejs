@@ -1,0 +1,37 @@
+<%- include('../includes/head.ejs') %>
+    <%- include('../includes/navigation.ejs') %>
+
+        <div class="container">
+            <div class="success-icon"></div>
+            <h1>Dziękujemy za rezerwację!</h1>
+            <div class="details">
+                <p><strong>Hotel:</strong>
+                    <%= hotelOffer.name %>
+                </p>
+                <p><strong>Adres:</strong>
+                    <%= hotelOffer.location.city %>, <%= hotelOffer.location.address %>
+                </p>
+                <p><strong>Opis:</strong>
+                    <%= hotelOffer.description %>
+                </p>
+                <p><strong>Cena za noc:</strong>
+                    <%= hotelOffer.pricePerNight.toFixed(2) %> PLN
+                </p>
+                <p><strong>Liczba dostępnych pokoi:</strong>
+                    <%= hotelOffer.availableRooms %>
+                </p>
+                <p><strong>Ocena:</strong>
+                    <%= hotelOffer.rating %> / 5
+                </p>
+                <p><strong>Twoja rezerwacja o ID:</strong>
+                    <%= booking._id %>
+                </p>
+            </div>
+            <div class="hotel-images">
+                <% hotelOffer.images.forEach(image=> { %>
+                    <img src="<%= image %>" alt="Hotel image" />
+                    <% }) %>
+            </div>
+            <a href="/" class="btn-home">Wróć do strony głównej</a>
+        </div>
+        <%- include('../includes/end.ejs') %>

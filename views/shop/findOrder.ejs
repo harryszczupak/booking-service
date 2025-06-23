@@ -1,0 +1,14 @@
+<%- include('../includes/head.ejs') %>
+    <%- include('../includes/navigation.ejs') %>
+        <div class="order-search-wrapper">
+            <h1>Wyszukaj zamówienie po ID</h1>
+            <form action="/search-order" method="POST" class="search-form">
+                <input type="text" name="orderId" placeholder="Wpisz ID zamówienia" required 
+                    title="Proszę wpisać tylko cyfry" />
+                <button type="submit">Szukaj</button>
+                <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+            </form>
+
+
+        </div>
+        <%- include('../includes/end.ejs') %>

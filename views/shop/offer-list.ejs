@@ -1,0 +1,61 @@
+<%- include('../includes/head.ejs') %>
+  <%- include('../includes/navigation.ejs') %>
+    <div class="offers-container">
+      <h1>Nasze Oferty</h1>
+
+      <% if (offers.length> 0) { %>
+        <% offers.forEach((offer)=> { %>
+          <div class="offer-item">
+            <div class="offer-image">
+              <img src="<%= offer.images[0] %>" alt="<%= offer.name %>">
+            </div>
+            <div class="offer-details">
+              <h2>
+                <%= offer.name %>
+              </h2>
+              <p class="description">
+                <%= offer.description %>
+              </p>
+              <p class="price">Cena za noc <%= offer.pricePerNight %> zł
+              </p>
+              <div class="btn-wrapper">
+                <a href="/offers/<%= offer._id %>" class="btn">Więcej</a>
+              </div>
+            </div>
+          </div>
+          <% }) %>
+            <% } %>
+              <div class="pagination">
+                <% if (currentPage> 2) { %>
+                  <a href="/offers?page=1" class="pagination-link">1</a>
+                  <% if (currentPage> 3) { %>
+                    <span class="pagination-dots">...</span>
+                    <% } %>
+                      <% } %>
+
+                        <% if (hasPreviousPage) { %>
+                          <a href="/offers?page=<%= prevPage %>" class="pagination-link">
+                            <%= prevPage %>
+                          </a>
+                          <% } %>
+
+                            <span class="pagination-current">
+                              <%= currentPage %>
+                            </span>
+
+                            <% if (hasNextPage) { %>
+                              <a href="/offers?page=<%= nexPage %>" class="pagination-link">
+                                <%= nexPage %>
+                              </a>
+                              <% } %>
+
+                                <% if (currentPage < lastPage - 1) { %>
+                                  <% if (currentPage < lastPage - 2) { %>
+                                    <span class="pagination-dots">...</span>
+                                    <% } %>
+                                      <a href="/offers?page=<%= lastPage %>" class="pagination-link">
+                                        <%= lastPage %>
+                                      </a>
+                                      <% } %>
+              </div>
+    </div> <%- include('../includes/end.ejs') %>

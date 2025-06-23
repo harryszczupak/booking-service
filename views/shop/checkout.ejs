@@ -1,0 +1,47 @@
+<%- include('../includes/head.ejs') %>
+    <%- include('../includes/navigation.ejs') %>
+
+        <main class="checkout-container">
+            <div class="checkout-box">
+                <h1>Podsumowanie rezerwacji</h1>
+                <div class="hotel-image-container">
+                    <img src="<%= hotelOffer.images[0] %>" alt="Brak zdjęcia hotelu" class="hotel-image" />
+                </div>
+                <div class="checkout-details">
+                    <p><strong>Hotel:</strong>
+                        <%= hotelOffer.name %>
+                    </p>
+                    <p><strong>Lokalizacja:</strong>
+                        <%= hotelOffer.location.city %>
+                    </p>
+                    <p><strong>Ilość nocy:</strong>
+                        <%= numNights %>
+                    </p>
+                    <p><strong>Cena za noc:</strong>
+                        <%= hotelOffer.pricePerNight %> zł
+                    </p>
+                    <p><strong>Całkowita cena:</strong>
+                        <%= totalAmount.toFixed(2) %> zł
+                    </p>
+                </div>
+
+                <button id="bookNowBtn" class="btn-pay">Zapłać teraz</button>
+            </div>
+        </main>
+
+        <script src="https://js.stripe.com/v3/"></script>
+        <script>
+            const stripe = Stripe('pk_test_51RUpuqE3EL53zKyzNQrDd1XYC5q0PMtkK6FMnlQsPlmx7okPdkijaSSfHxJyIqSm3tqphbPOWi3fdOf4SFqX64Pf00HAjv8FDx');
+
+            document.getElementById('bookNowBtn').addEventListener('click', function () {
+                stripe.redirectToCheckout({
+                    sessionId: '<%= sessionId %>'
+                }).then(function (result) {
+                    if (result.error) {
+                        alert(result.error.message);
+                    }
+                });
+            });
+        </script>
+
+        <%- include('../includes/end.ejs') %>
