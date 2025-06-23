@@ -861,20 +861,31 @@ input.invalid {
 }
 .offer-info {
 	flex: 1;
-	height: 300px; /* dopasowana wysokość do karuzeli */
+	height: 300px;
 	display: flex;
 	justify-content: space-between;
 	flex-direction: row;
 	font-size: 1.1rem;
-	line-height: 1.4; /* trochę mniejszy line-height dla lepszego dopasowania */
+	line-height: 1.4;
 	position: relative;
-	padding: 15px 20px; /* zmniejszony padding pionowy */
+	padding: 15px 20px;
 	background: #fff;
 	border-radius: 12px;
 	box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
 	box-sizing: border-box;
-	gap: 15px; /* mniejszy odstęp */
-	overflow: hidden; /* ukryj overflow */
+	gap: 15px;
+	overflow: hidden;
+}
+
+/* MOBILE (telefony, ekrany <= 768px) */
+@media (max-width: 768px) {
+	.offer-info {
+		flex-direction: column;
+		height: auto; /* dynamiczna wysokość */
+		padding: 10px 15px;
+		font-size: 0.95rem;
+		gap: 10px;
+	}
 }
 .offer-info h2 {
 	font-size: 1.5rem; /* mniejsza czcionka */
@@ -947,17 +958,25 @@ input.invalid {
 }
 .container {
 	max-width: 700px;
+	flex: 1;
 	margin: 50px auto;
 	background: white;
 	padding: 30px 40px;
 	border-radius: 8px;
 	box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+	box-sizing: border-box;
+}
+@media (max-width: 768px) {
+	.feature {
+		margin-bottom: 5rem;
+	}
 }
 .container h1 {
 	color: #2c3e50;
 	text-align: center;
 	margin-bottom: 20px;
 }
+
 .container .success-icon {
 	display: block;
 	margin: 0 auto 25px;
@@ -967,6 +986,7 @@ input.invalid {
 	border-radius: 50%;
 	position: relative;
 }
+
 .container .success-icon::after {
 	content: '✔';
 	color: white;
@@ -976,20 +996,24 @@ input.invalid {
 	top: 10px;
 	left: 25px;
 }
+
 .container .details {
 	font-size: 18px;
 	line-height: 1.6;
 	margin-bottom: 30px;
 }
+
 .container .details strong {
 	color: #2980b9;
 }
+
 .container .hotel-images {
 	display: flex;
 	gap: 10px;
 	overflow-x: auto;
 	margin-bottom: 20px;
 }
+
 .container .hotel-images img {
 	height: 120px;
 	border-radius: 6px;
@@ -997,6 +1021,7 @@ input.invalid {
 	flex-shrink: 0;
 	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 }
+
 .container .btn-home {
 	display: block;
 	text-align: center;
@@ -1010,9 +1035,52 @@ input.invalid {
 	margin: 0 auto;
 	width: 180px;
 }
+
+/* HOVER */
 .container .btn-home:hover {
 	background-color: #1c5980;
 }
+
+/* === RESPONSYWNOŚĆ === */
+@media (max-width: 768px) {
+	.container {
+		margin: 20px 15px;
+		padding: 20px;
+	}
+
+	.container h1 {
+		font-size: 1.5rem;
+	}
+
+	.container .success-icon {
+		width: 60px;
+		height: 60px;
+	}
+
+	.container .success-icon::after {
+		font-size: 36px;
+		top: 7px;
+		left: 19px;
+	}
+
+	.container .details {
+		font-size: 16px;
+		line-height: 1.4;
+		margin-bottom: 20px;
+	}
+
+	.container .hotel-images img {
+		height: 100px;
+	}
+
+	.container .btn-home {
+		width: 100%;
+		max-width: 240px;
+		padding: 10px 20px;
+		font-size: 1rem;
+	}
+}
+
 .order-wrapper {
 	min-width: 90%;
 	margin: 50px auto;
@@ -1097,6 +1165,20 @@ input.invalid {
 	object-fit: cover;
 	border-radius: 6px;
 	margin-right: 20px;
+}
+@media (max-width: 768px) {
+	.order {
+		flex-direction: column;
+		align-items: flex-start;
+		width: 100%;
+	}
+
+	.order img {
+		width: 100%;
+		height: auto;
+		margin-right: 0;
+		margin-bottom: 10px;
+	}
 }
 .order-info {
 	flex: 1;
@@ -1389,4 +1471,72 @@ input.invalid {
 	color: #ff6b6b;
 	margin-top: 10px;
 	text-align: center;
+}
+.burger {
+	display: none;
+	flex-direction: column;
+	justify-content: space-between;
+	width: 25px;
+	height: 18px;
+	cursor: pointer;
+	z-index: 1001;
+	position: absolute;
+	top: 20px;
+	right: 20px;
+}
+
+.burger span {
+	display: block;
+	height: 3px;
+	background-color: #fff;
+	border-radius: 2px;
+	transition: all 0.3s ease-in-out;
+}
+
+/* Styl dla mobilnego menu */
+.mobile-nav {
+	position: fixed;
+	top: 0;
+	left: 0;
+	height: 100%;
+	width: 100%;
+	background-color: rgba(0, 0, 0, 0.95); /* lekko przezroczyste tło */
+	transform: translateY(-100%);
+	transition: transform 0.4s ease-in-out;
+	z-index: 1000;
+
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	gap: 1.5rem;
+	justify-content: center;
+	list-style: none;
+}
+
+.mobile-nav.show {
+	transform: translateY(0);
+}
+
+.mobile-nav li a,
+.mobile-nav li form button {
+	color: white;
+	text-decoration: none;
+	font-size: 1.5rem;
+	background: none;
+	border: none;
+	cursor: pointer;
+}
+
+/* Ukryj desktopową nawigację na telefonie */
+@media (max-width: 768px) {
+	.desktop-nav {
+		display: none;
+	}
+
+	.burger {
+		display: flex;
+	}
+	nav {
+		height: 1.25rem;
+	}
 }

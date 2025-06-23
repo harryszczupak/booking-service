@@ -1,26 +1,65 @@
 <header>
     <nav>
-        <ul class="left-nav">
+        <!-- Burger ikona -->
+        <div class="burger" id="burger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+
+        <!-- Desktopowa nawigacja -->
+        <ul class="left-nav desktop-nav">
             <li><a href="/" class="<%= path === '/' ? 'active' : ''%>">Główna</a></li>
             <li><a href="/offers" class="<%= path === '/offers' ? 'active' : ''%>">Oferty</a></li>
-            <a href="<%= isAuthenticated ? '/orders' : '/find-order' %>"
-                class="<%= path === '/find-offers' ? 'active' : '' %>">
-                Rezerwacje
-            </a>
+            <li>
+                <a href="<%= isAuthenticated ? '/orders' : '/find-order' %>"
+                    class="<%= path === '/find-offers' ? 'active' : '' %>">
+                    Rezerwacje
+                </a>
+            </li>
         </ul>
-        <ul class="right-nav">
-            <% if(isAuthenticated) { %>
 
+        <ul class="right-nav desktop-nav">
+            <% if(isAuthenticated) { %>
                 <li><a href="/profile" class="<%= path === '/profile' ? 'active' : ''%>">Profil</a></li>
                 <form action="/logout" method="POST" class="logout-form">
                     <input type="hidden" name="_csrf" value="<%= csrfToken %>">
                     <button type="submit" class="btn-logout">Wyloguj</button>
                 </form>
-
                 <% } else { %>
                     <li><a href="/login" class="<%= path === '/login' ? 'active' : ''%>">Zaloguj</a></li>
-                    <li><a href="/signup" class="<%= path === '/signup' ? 'active' : ''%>">Stwórz konto</a></li>
+                    <% } %>
+        </ul>
+
+        <!-- Mobilne menu -->
+        <ul class="mobile-nav" id="mobileNav">
+            <li><a href="/" class="<%= path === '/' ? 'active' : ''%>">Główna</a></li>
+            <li><a href="/offers" class="<%= path === '/offers' ? 'active' : ''%>">Oferty</a></li>
+            <li>
+                <a href="<%= isAuthenticated ? '/orders' : '/find-order' %>"
+                    class="<%= path === '/find-offers' ? 'active' : '' %>">
+                    Rezerwacje
+                </a>
+            </li>
+            <% if(isAuthenticated) { %>
+                <li><a href="/profile" class="<%= path === '/profile' ? 'active' : ''%>">Profil</a></li>
+                <li>
+                    <form action="/logout" method="POST" class="logout-form">
+                        <input type="hidden" name="_csrf" value="<%= csrfToken %>">
+                        <button type="submit" class="btn-logout">Wyloguj</button>
+                    </form>
+                </li>
+                <% } else { %>
+                    <li><a href="/login" class="<%= path === '/login' ? 'active' : ''%>">Zaloguj</a></li>
                     <% } %>
         </ul>
     </nav>
 </header>
+<script>
+    const burger = document.getElementById('burger');
+    const mobileNav = document.getElementById('mobileNav');
+
+    burger.addEventListener('click', () => {
+        mobileNav.classList.toggle('show');
+    });
+</script>
